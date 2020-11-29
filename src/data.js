@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-function chillPop() {
+function musicData() {
   return [
     {
       name: "Beaver Creek",
@@ -66,4 +66,4 @@ function chillPop() {
   ];
 }
 
-export default chillPop;
+export default musicData;
