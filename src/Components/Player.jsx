@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 //FontAwesome  Components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,10 +13,31 @@ const Player = ({
   isPlaying,
   setIsPlaying,
   currentSong,
+  setCurrentSong,
   audioRef,
-  setSongInfo,
   songInfo,
+  setSongInfo,
+  songs,
+  setSongs,
 }) => {
+  //UseEffect
+
+  useEffect(() => {
+    const newSongs = songs.map((song) => {
+      if (song.id === currentSong.id) {
+        return {
+          ...song,
+          active: true,
+        };
+      } else {
+        return {
+          ...song,
+          active: false,
+        };
+      }
+    });
+    setSongs(newSongs);
+  });
   //Event Handlers
   const playSongHandler = () => {
     if (isPlaying) {
@@ -37,10 +59,24 @@ const Player = ({
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
+  const skip = async (direction) => {
+    const currentIndex = songs.findIndex((s) => s.id === currentSong.id);
+    let newIndex = currentIndex + direction;
+
+    if (newIndex < 0) {
+      newIndex = songs.length - 1;
+    } else if (newIndex >= songs.length) {
+      newIndex = 0;
+    }
+
+    setCurrentSong(songs[newIndex]);
+  };
+
   return (
     <div className="player">
       <div className="time-controls">
         <p>{getTime(songInfo.currentTime)}</p>
+
         <input
           min={0}
           max={songInfo.duration}
@@ -48,17 +84,28 @@ const Player = ({
           onChange={dragHandler}
           type="range"
         />
-        <p>{getTime(songInfo.duration)}</p>
+
+        <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
       </div>
       <div className="play-controls">
-        <FontAwesomeIcon className="back" size="2x" icon={faAngleLeft} />
+        <FontAwesomeIcon
+          onClick={() => skip(-1)}
+          className="back"
+          size="2x"
+          icon={faAngleLeft}
+        />
         <FontAwesomeIcon
           onClick={playSongHandler}
           className="play"
           size="2x"
           icon={isPlaying ? faPause : faPlay}
         />
-        <FontAwesomeIcon className="forward" size="2x" icon={faAngleRight} />
+        <FontAwesomeIcon
+          onClick={() => skip(1)}
+          className="forward"
+          size="2x"
+          icon={faAngleRight}
+        />
       </div>
     </div>
   );

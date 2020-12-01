@@ -10,7 +10,7 @@ function musicData() {
         "https://p.scdn.co/mp3-preview/9f4b60b00224d826e26ddb1d8a32cd8452722345?cid=d8a5ed958d274c2e8ee717e6a4b0971d",
       color: ["#205950", "#2ab3bf"],
       id: uuidv4(),
-      active: true,
+      active: false,
     },
     {
       name: "Daylight",
@@ -62,7 +62,6 @@ function musicData() {
       id: uuidv4(),
       active: false,
     },
-    {},
   ];
 }
 

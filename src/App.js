@@ -7,13 +7,13 @@ import Song from "./Components/Song";
 import Library from "./Components/Library";
 import Nav from "./Components/Nav";
 //Songs Data
-import data from "./data";
+import songsList from "./songsList";
 
 function App() {
   //Ref
   const audioRef = useRef(null);
   //State
-  const [songs, setSongs] = useState(data());
+  const [songs, setSongs] = useState(songsList());
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({
@@ -39,6 +39,9 @@ function App() {
         currentSong={currentSong}
         setSongInfo={setSongInfo}
         songInfo={songInfo}
+        songs={songs}
+        setCurrentSong={setCurrentSong}
+        setSongs={setSongs}
       />
       <Library
         audioRef={audioRef}
@@ -47,6 +50,7 @@ function App() {
         isPlaying={isPlaying}
         setSongs={setSongs}
         libraryStatus={libraryStatus}
+        currentSong={currentSong}
       />
       <audio
         onTimeUpdate={timeUpdateHandler}

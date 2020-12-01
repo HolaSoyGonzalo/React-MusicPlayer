@@ -10,8 +10,9 @@
     width: 50%;
     display: flex;
     input {
-        width: 100%;
-        padding: 1rem 0rem;
+        width: 80%;
+
+        cursor: pointer;
     }
     p {
         padding: 1rem;
@@ -24,4 +25,13 @@
     align-items: center;
     padding: 1rem;
     width: 30%;
+    svg {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .play-controls {
+        width: 60%;
+    }
 }
